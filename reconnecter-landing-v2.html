@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reconnecter — Retrouver ta place dans la vie de ton enfant adulte</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose:       #C9897A;
+    --rose-light: #F5E0DA;
+    --rose-pale:  #FDF0EB;
+    --terra:      #8B4A3A;
+    --sauge:      #7A9E7E;
+    --creme:      #FDF6EE;
+    --brun:       #3D2B1F;
+    --or:         #C4A882;
+    --gris:       #9A8880;
+    --blanc:      #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--creme);
+    color: var(--brun);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ─────────────────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px 80px;
+    position: relative;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, #F0D8CF 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 90% 80%, #E8D5C8 0%, transparent 60%),
+      var(--creme);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(201,137,122,0.04) 40px, rgba(201,137,122,0.04) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(201,137,122,0.04) 40px, rgba(201,137,122,0.04) 41px);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--rose);
+    border: 1px solid var(--rose);
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s ease forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 10vw, 88px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--terra);
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s ease forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--rose);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gris);
+    max-width: 520px;
+    line-height: 1.6;
+    margin: 20px auto 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s ease forwards;
+  }
+
+  .hero-scene {
+    background: var(--blanc);
+    border-left: 3px solid var(--rose);
+    max-width: 560px;
+    margin: 0 auto 48px;
+    padding: 28px 32px;
+    text-align: left;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--brun);
+    box-shadow: 0 4px 30px rgba(139,74,58,0.08);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s ease forwards;
+  }
+
+  .cta-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    opacity: 0;
+    animation: fadeUp 0.8s 1s ease forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--terra);
+    color: var(--blanc);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 18px 48px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 32px rgba(139,74,58,0.25);
+  }
+  .btn-primary:hover {
+    background: var(--rose);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px rgba(201,137,122,0.35);
+  }
+
+  .price-note {
+    font-size: 13px;
+    color: var(--gris);
+    font-weight: 300;
+  }
+  .price-note strong {
+    color: var(--terra);
+    font-weight: 500;
+  }
+
+  /* ── STAT BAR ─────────────────────────────────────────────────────── */
+  .stat-bar {
+    background: var(--terra);
+    padding: 40px 24px;
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 16px 40px;
+    border-right: 1px solid rgba(255,255,255,0.15);
+    flex: 1;
+    min-width: 160px;
+  }
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    font-weight: 300;
+    color: var(--rose-light);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.5px;
+    line-height: 1.5;
+  }
+
+  /* ── SECTIONS ─────────────────────────────────────────────────────── */
+  section {
+    padding: 80px 24px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--sauge);
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 6vw, 50px);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--terra);
+    margin-bottom: 24px;
+  }
+  h2 em { font-style: italic; color: var(--rose); }
+
+  p {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--brun);
+    margin-bottom: 16px;
+  }
+
+  /* ── TEMOIGNAGES ──────────────────────────────────────────────────── */
+  .temoignage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  .temoignage {
+    background: var(--blanc);
+    border: 1px solid var(--rose-light);
+    padding: 32px 28px;
+    border-radius: 2px;
+    position: relative;
+  }
+  .temoignage::before {
+    content: '❝';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    color: var(--rose-light);
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    line-height: 1;
+  }
+
+  .temoignage p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--brun);
+    margin-bottom: 20px;
+  }
+
+  .temoignage-auteur {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--rose);
+  }
+
+  /* ── CONTENU ──────────────────────────────────────────────────────── */
+  .contenu-section {
+    background: var(--blanc);
+    padding: 80px 24px;
+  }
+
+  .contenu-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .contenu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .contenu-item {
+    padding: 28px 24px;
+    border: 1px solid var(--rose-light);
+    border-radius: 2px;
+    transition: border-color 0.25s;
+  }
+  .contenu-item:hover { border-color: var(--rose); }
+
+  .contenu-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .contenu-item h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--terra);
+    margin-bottom: 8px;
+  }
+
+  .contenu-item p {
+    font-size: 14px;
+    color: var(--gris);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ── SCIENCE ──────────────────────────────────────────────────────── */
+  .science-section {
+    background: var(--rose-pale);
+    padding: 80px 24px;
+  }
+
+  .science-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .science-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 32px;
+    align-items: flex-start;
+  }
+
+  .science-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--rose);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 50px;
+  }
+
+  .science-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--terra);
+    margin-bottom: 6px;
+  }
+  .science-content p {
+    font-size: 14px;
+    color: var(--gris);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .science-content .ref {
+    font-size: 11px;
+    font-style: italic;
+    color: var(--rose);
+    margin-top: 4px;
+  }
+
+  /* ── POUR QUI ─────────────────────────────────────────────────────── */
+  .pourqui-list {
+    list-style: none;
+    margin-top: 32px;
+  }
+  .pourqui-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rose-light);
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .pourqui-list li:last-child { border-bottom: none; }
+  .pourqui-list .check {
+    color: var(--sauge);
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── MANTRA ───────────────────────────────────────────────────────── */
+  .mantra-section {
+    background: var(--terra);
+    padding: 80px 24px;
+    text-align: center;
+  }
+
+  .mantra-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 5vw, 42px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--rose-light);
+    line-height: 1.5;
+    max-width: 560px;
+    margin: 0 auto 40px;
+  }
+
+  /* ── PRIX ─────────────────────────────────────────────────────────── */
+  .prix-section {
+    padding: 80px 24px;
+    text-align: center;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .prix-card {
+    background: var(--blanc);
+    border: 2px solid var(--rose-light);
+    padding: 48px 40px;
+    border-radius: 4px;
+    box-shadow: 0 20px 60px rgba(139,74,58,0.10);
+  }
+
+  .prix-badge {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--sauge);
+    margin-bottom: 20px;
+  }
+
+  .prix-montant {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    color: var(--terra);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .prix-devise {
+    font-size: 24px;
+    vertical-align: super;
+    font-weight: 300;
+  }
+
+  .prix-inclus {
+    font-size: 13px;
+    color: var(--gris);
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  .prix-items {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 36px;
+  }
+  .prix-items li {
+    font-size: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rose-light);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: var(--brun);
+  }
+  .prix-items li:last-child { border-bottom: none; }
+  .prix-items .dot { color: var(--rose); font-size: 18px; }
+
+  .garantie {
+    font-size: 12px;
+    color: var(--gris);
+    margin-top: 16px;
+    font-style: italic;
+  }
+
+  /* ── FOOTER ───────────────────────────────────────────────────────── */
+  footer {
+    background: var(--brun);
+    padding: 40px 24px;
+    text-align: center;
+  }
+  footer p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin: 0;
+    line-height: 1.8;
+  }
+
+  /* ── ANIMATIONS ───────────────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── MOBILE ───────────────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .stat-item { padding: 16px 20px; min-width: 130px; }
+    .stat-num { font-size: 36px; }
+    section { padding: 60px 20px; }
+    .prix-card { padding: 36px 24px; }
+    .prix-montant { font-size: 56px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-badge">Guide émotionnel & scientifique</div>
+  <h1 class="hero-title">Re<em>con</em>necter</h1>
+  <p class="hero-subtitle">Retrouver ta place dans la vie de ton enfant adulte — même quand tout semble bloqué.</p>
+
+  <div class="hero-scene">
+    Il est tard. Tu regardes ton téléphone.<br>
+    La dernière conversation — celle qui s'est mal terminée, ou celle qui n'a jamais vraiment commencé — est toujours là.<br><br>
+    Tu as commencé à écrire. Tu as effacé.<br>
+    Recommencé. Effacé encore.<br><br>
+    <strong>Ce guide a été écrit pour ce moment-là.</strong>
+  </div>
+
+  <div class="cta-group">
+    <a href="#prix" class="btn-primary">Je veux retrouver mon enfant →</a>
+    <p class="price-note">Guide complet en 3 langues · <strong>9,99 €</strong> · Téléchargement immédiat</p>
+  </div>
+</section>
+
+<!-- ── STAT BAR ──────────────────────────────────────────────────────────── -->
+<div class="stat-bar">
+  <div class="stat-item">
+    <div class="stat-num">27%</div>
+    <div class="stat-label">des familles vivent une<br>rupture parent-enfant</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">10</div>
+    <div class="stat-label">chapitres pour comprendre,<br>se préparer, agir</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">15</div>
+    <div class="stat-label">messages WhatsApp<br>prêts à envoyer</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">3</div>
+    <div class="stat-label">langues incluses<br>FR · EN · AR</div>
+  </div>
+</div>
+
+<!-- ── TU N'ES PAS SEULE ─────────────────────────────────────────────────── -->
+<section class="reveal">
+  <div class="section-label">La réalité que personne ne dit</div>
+  <h2>Tu n'es pas la seule à vivre <em>ça</em></h2>
+  <p>Des millions de mamans portent ce silence en elles. La honte de ne pas savoir comment faire. La peur d'aggraver les choses. L'épuisement d'attendre une réponse qui ne vient pas.</p>
+  <p>La recherche en psychologie familiale est claire : la rupture parent-enfant adulte est l'une des expériences les plus douloureuses qu'un parent puisse traverser — et l'une des plus répandues. <strong>Tu n'as pas échoué. Tu traverses quelque chose d'humain.</strong></p>
+  <p style="font-family:'Cormorant Garamond',serif; font-size:20px; font-style:italic; color:var(--rose); margin-top:24px;">
+    Et dans beaucoup de cas, la reconnexion est possible — surtout quand le parent choisit d'agir avec la bonne approche.
+  </p>
+</section>
+
+<!-- ── TÉMOIGNAGES ───────────────────────────────────────────────────────── -->
+<div class="temoignage-grid">
+  <div class="temoignage reveal">
+    <p>Je croyais être la seule mère au monde dans cette situation. Quand j'ai découvert les chiffres, quelque chose s'est desserré en moi.</p>
+    <div class="temoignage-auteur">Fatima, 54 ans · Casablanca</div>
+  </div>
+  <div class="temoignage reveal">
+    <p>Ce qui a tout changé, ce n'était pas le bon message que j'ai fini par envoyer. C'était que j'avais arrêté d'attendre après ma fille pour vivre. Elle l'a senti.</p>
+    <div class="temoignage-auteur">Leila, 58 ans · Montréal</div>
+  </div>
+  <div class="temoignage reveal">
+    <p>Quand j'ai lu le concept de deuil ambigu, j'ai enfin pu mettre des mots sur ce que je vivais depuis 4 ans. Ça m'a libérée.</p>
+    <div class="temoignage-auteur">Nadia, 61 ans · Lyon</div>
+  </div>
+</div>
+
+<!-- ── CONTENU ───────────────────────────────────────────────────────────── -->
+<div class="contenu-section">
+  <div class="contenu-inner reveal">
+    <div class="section-label">Ce que tu vas recevoir</div>
+    <h2>Un guide complet,<br><em>pas un pamphlet de 10 pages</em></h2>
+    <p>Chaque chapitre commence par une scène de vie que tu reconnaîtras. La science arrive après — pour expliquer, pas pour impressionner.</p>
+    <div class="contenu-grid">
+      <div class="contenu-item">
+        <div class="contenu-icon">📖</div>
+        <h3>10 chapitres profonds</h3>
+        <p>Comprendre la rupture, gérer le silence, écrire la lettre d'amends, reprendre contact au bon moment.</p>
+      </div>
+      <div class="contenu-item">
+        <div class="contenu-icon">💬</div>
+        <h3>15 messages prêts</h3>
+        <p>Adaptés à chaque situation — rupture récente, longue absence, anniversaire, réponse à un message hostile.</p>
+      </div>
+      <div class="contenu-item">
+        <div class="contenu-icon">📅</div>
+        <h3>Programme 21 jours</h3>
+        <p>10 à 20 minutes par jour. Une direction claire, sans se brusquer.</p>
+      </div>
+      <div class="contenu-item">
+        <div class="contenu-icon">🔬</div>
+        <h3>Sources scientifiques</h3>
+        <p>Bowlby, Pillemer, Coleman, Rosenberg, Worthington — cités en langage humain, pas académique.</p>
+      </div>
+      <div class="contenu-item">
+        <div class="contenu-icon">
+        <h3>3 langues incluses</h3>
+        <p>Français, anglais, arabe — dans le même achat. Un seul téléchargement, trois PDF.</p>
+      </div>
+      <div class="contenu-item">
+        <div class="contenu-icon">💝</div>
+        <h3>Ton maternel</h3>
+        <p>Écrit comme une amie qui t'accompagne — pas comme un manuel clinique.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCIENCE ────────────────────────────────────────────────────────────── -->
+<div class="science-section">
+  <div class="science-inner reveal">
+    <div class="section-label">Ancré dans la recherche</div>
+    <h2>La science au service <em>de ton cœur</em></h2>
+    <p style="margin-bottom:40px;">Ce guide n'est pas une opinion. Il s'appuie sur des décennies de recherche en psychologie familiale, neurosciences et communication.</p>
+
+    <div class="science-item">
+      <div class="science-num">01</div>
+      <div class="science-content">
+        <h3>La rupture est courante — et souvent temporaire</h3>
+        <p>Des études longitudinales montrent que beaucoup de ruptures parent-enfant évoluent avec le temps, notamment quand le parent adopte une approche adaptée.</p>
+        <p class="ref">Reczek, Stacey & Thomeer, Journal of Marriage and Family, 2023 · Pillemer, Cornell University, 2020</p>
+      </div>
+    </div>
+
+    <div class="science-item">
+      <div class="science-item">
+      <div class="science-num">02</div>
+      <div class="science-content">
+        <h3>Ta douleur est neurobiologiquement réelle</h3>
+        <p>Le rejet social active les mêmes zones cérébrales que la douleur physique. Ce que tu ressens n'est pas exagéré.</p>
+        <p class="ref">Eisenberger, Lieberman & Williams, Science, 2003</p>
+      </div>
+    </div>
+
+    <div class="science-item">
+      <div class="science-num">03</div>
+      <div class="science-content">
+        <h3>Le pardon te libère — pas l'autre</h3>
+        <p>Des modèles de pardon validés par des dizaines d'études contrôlées montrent une réduction significative de la détresse émotionnelle chez le parent.</p>
+        <p class="ref">Worthington et al., Journal of Consulting and Clinical Psychology, 2014</p>
+      </div>
+    </div>
+
+    <div class="science-item">
+      <div class="science-num">04</div>
+      <div class="science-content">
+        <h3>Les excuses sincères ont une structure</h3>
+        <p>La recherche identifie précisément ce qui rend une excuse efficace — et ce qui, malgré les bonnes intentions, referme les portes.</p>
+        <p class="ref">Schumann, Current Directions in Psychological Science, 2018</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── POUR QUI ────────────────────────────────────────────────────────────── -->
+<section class="reveal">
+  <div class="section-label">Ce guide est fait pour toi si...</div>
+  <h2>Tu te reconnais <em>ici</em></h2>
+  <ul class="pourqui-list">
+    <li><span class="check">✓</span> Tu es mère (ou père) dont l'enfant adulte s'est éloigné ou a coupé le contact</li>
+    <li><span class="check">✓</span> La rupture dure depuis quelques mois — ou plusieurs années</li>
+    <li><span class="check">✓</span> Tu veux renouer sans pression, sans manipulation, sans perdre ta dignité</li>
+    <li><span class="check">✓</span> Tu cherches des mots concrets, pas seulement du réconfort vague</li>
+    <li><span class="check">✓</span> Tu es prête à regarder honnêtement ta part — même petite — dans la distance</li>
+    <li><span class="check">✓</span> Tu acceptes que le chemin soit lent, mais réel</li>
+  </ul>
+</section>
+
+<!-- ── MANTRA ─────────────────────────────────────────────────────────────── -->
+<div class="mantra-section">
+  <p class="mantra-text">"Tu n'as pas besoin d'être parfaite.<br>Tu as besoin d'être vraie.<br><br>C'est assez. Tu es assez."</p>
+  <a href="#prix" class="btn-primary" style="display:inline-block;">Je commence maintenant →</a>
+</div>
+
+<!-- ── PRIX ───────────────────────────────────────────────────────────────── -->
+<div class="prix-section reveal" id="prix">
+  <div class="section-label" style="text-align:center;">Accès immédiat</div>
+  <h2 style="text-align:center;">Un seul prix.<br><em>Téléchargement immédiat.</em></h2>
+  <div class="prix-card">
+    <div class="prix-badge">Guide Premium · Téléchargement PDF</div>
+    <div class="prix-montant"><span class="prix-devise">€</span>9<span style="font-size:36px;">,99</span></div>
+    <div class="prix-inclus">Paiement unique · Pas d'abonnement · PDF immédiat</div>
+    <ul class="prix-items">
+      <li><span class="dot">💝</span> Guide complet Reconnecter — Version française (PDF) · 100+ pages</li>
+      <li><span class="dot">✓</span> 10 chapitres · Programme 21 jours</li>
+      <li><span class="dot">✓</span> 15 messages WhatsApp prêts à envoyer</li>
+      <li><span class="dot">✓</span> Sources scientifiques complètes</li>
+    </ul>
+    <a href="https://dailytask.gumroad.com/l/pamzlh" class="btn-primary" style="display:block; text-align:center; width:100%;">Télécharger maintenant →</a>
+    <p class="garantie">🔒 Paiement sécurisé via Gumroad · Remboursement 30 jours si insatisfaite</p>
+  </div>
+</div>
+
+<!-- ── PARTAGE ─────────────────────────────────────────────────────────────── -->
+<section class="reveal" style="text-align:center; padding-bottom:60px;">
+  <p style="font-family:'Cormorant Garamond',serif; font-size:20px; font-style:italic; color:var(--rose); margin-bottom:12px;">
+    "Si ce guide t'a aidée —<br>partage-le avec une amie qui en a besoin."
+  </p>
+  <p style="font-size:14px; color:var(--gris);">
+    Parfois, le plus grand cadeau qu'on puisse faire à une maman,<br>
+    c'est de lui dire : <strong>tu n'es pas seule.</strong>
+  </p>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <p>
+    © 2025 Reconnecter · Tous droits réservés<br>
+    Ce guide est à but informatif et ne remplace pas un accompagnement thérapeutique professionnel.
+  </p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
